@@ -13,7 +13,7 @@ You can find use cases for clustering at http://commons.apache.org/proper/common
 
 
 
-One possible implementation of HaversineDistance using apache commons math machine learning clusering means++  is :
+One possible implementation of HaversineDistance using apache commons math machine learning clustering kmeans++ is:
 
 HaversineDistance haversine = new HaversineDistance();
 
