@@ -140,8 +140,9 @@ public class ClusteringDemo {
 
 		// http://commons.apache.org/proper/commons-math/apidocs/org/apache/commons/math4/ml/clustering/DBSCANClusterer.html
 		// constructor DBSCANClusterer(double eps, int minPts)
+		HaversineDistance hd = new HaversineDistance();
 		DBSCANClusterer<LocationWrapper> clusterer = new DBSCANClusterer<LocationWrapper>(
-				eps, minPts);
+				eps, minPts, hd);
 		List<Cluster<LocationWrapper>> clusterResults = clusterer
 				.cluster(clusterInput);
 		
@@ -156,52 +157,6 @@ public class ClusteringDemo {
 		}
 	}
 	
-	
-	//wrapper class
-//	public static class LocationWrapper implements Clusterable {
-//	 private double[] points;
-//	 private Location location;
-//
-//	 public LocationWrapper(Location location) {
-//	     this.location = location;
-//	     this.points = new double[] { location.getX(), location.getY() };
-//	 }
-//	 public Location getLocation() {
-//	     return location;
-//	 }
-//	 public double[] getPoint() {
-//	     return points;
-//	 }
-//	 
-//	 public void clustererer(){
-//	}
-//}
-//	public static class Location{
-//		
-//		private double x;
-//		private double y;
-//		
-//		public Location(){		
-//		}
-//		public Location(double x,double y ){	
-//			this.x=x;
-//			this.y=y;
-//		}
-//		public void setX(double x){
-//			this.x=x;
-//		}
-//		public void setY(double y){
-//			this.y=y;
-//		}
-//		public double getX(){
-//			return x;
-//		}
-//		
-//		public double getY(){
-//			return y;
-//		}	
-//	}
-	
 	public static void main(String[]args){
 		
 		ClusteringDemo cd = new ClusteringDemo(true);
@@ -213,7 +168,6 @@ public class ClusteringDemo {
 		cd.multiKMeansplusplusClusterer();
 		System.out.println("\n\n---------DBSCAN---------");
 		cd.dbscan(2, 3);
-	}
-	
+	}	
 }
 
