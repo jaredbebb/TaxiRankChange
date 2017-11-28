@@ -27,13 +27,18 @@ public class ClusteringDemo {
 		Location b = new Location(-72.991423645019531, 39.990977478027344);
 		Location c = new Location(-73.111423645019531, 40.110977478027344);
 		Location d = new Location(-83.951423645019531, 50.790977478027344);
-		Location e = new Location(-33.951423645019531, 10.790977478027344);;
+		Location e = new Location(-33.951423645019531, 10.790977478027344);
+		Location f = new Location(41.0, -74.0);
+		Location g = new Location(40.9999215195, -74.0);
 		
 		locations = new ArrayList<Location>();
-		locations.add(a);locations.add(b);locations.add(c);locations.add(d);locations.add(e);
-		locations.add(a);locations.add(b);locations.add(c);locations.add(d);locations.add(e);
-		locations.add(a);locations.add(b);locations.add(c);locations.add(d);locations.add(e);
-		locations.add(a);locations.add(b);locations.add(c);locations.add(d);locations.add(e);
+		locations.add(a);locations.add(b);locations.add(c);locations.add(d);locations.add(e);locations.add(f);locations.add(g);
+		locations.add(a);locations.add(b);locations.add(c);locations.add(d);locations.add(e);locations.add(f);locations.add(g);
+		locations.add(a);locations.add(b);locations.add(c);locations.add(d);locations.add(e);locations.add(f);locations.add(g);
+		locations.add(a);locations.add(b);locations.add(c);locations.add(d);locations.add(e);locations.add(f);locations.add(g);
+		locations.add(a);locations.add(b);locations.add(c);locations.add(d);locations.add(e);locations.add(f);locations.add(g);
+		locations.add(a);locations.add(b);locations.add(c);locations.add(d);locations.add(e);locations.add(f);locations.add(g);
+		locations.add(a);locations.add(b);locations.add(c);locations.add(d);locations.add(e);locations.add(f);locations.add(g);
 
 		clusterInput = new ArrayList<LocationWrapper>(locations.size());
 		for (Location locate : locations)
@@ -140,9 +145,8 @@ public class ClusteringDemo {
 
 		// http://commons.apache.org/proper/commons-math/apidocs/org/apache/commons/math4/ml/clustering/DBSCANClusterer.html
 		// constructor DBSCANClusterer(double eps, int minPts)
-		HaversineDistance hd = new HaversineDistance();
 		DBSCANClusterer<LocationWrapper> clusterer = new DBSCANClusterer<LocationWrapper>(
-				eps, minPts, hd);
+				eps, minPts);
 		List<Cluster<LocationWrapper>> clusterResults = clusterer
 				.cluster(clusterInput);
 		
@@ -153,6 +157,22 @@ public class ClusteringDemo {
 					.getPoints()) {
 				System.out.println(locationWrapper.getLocation().getX() + ","
 						+ locationWrapper.getLocation().getY()+","+"cluster-"+i);
+			}
+		}
+	}
+	public void dbscan(double eps, int minPts, boolean haversine){
+		if(haversine == true){			
+			HaversineDistance hd = new HaversineDistance();
+			DBSCANClusterer<LocationWrapper> clusterer = new DBSCANClusterer<LocationWrapper>(
+					eps, minPts, hd);
+			List<Cluster<LocationWrapper>> clusterResults = clusterer
+					.cluster(clusterInput);		
+			for (int i = 0; i < clusterResults.size(); i++) {
+				for (LocationWrapper locationWrapper : clusterResults.get(i)
+						.getPoints()) {
+					System.out.println(locationWrapper.getLocation().getX() + ","
+							+ locationWrapper.getLocation().getY()+","+"cluster-"+i);
+				}
 			}
 		}
 	}
@@ -168,6 +188,8 @@ public class ClusteringDemo {
 		cd.multiKMeansplusplusClusterer();
 		System.out.println("\n\n---------DBSCAN---------");
 		cd.dbscan(2, 3);
+		System.out.println("\n\n---------DBSCAN HAVERSINE---------");
+		cd.dbscan(0.00894805, 5,true);
 	}	
 }
 

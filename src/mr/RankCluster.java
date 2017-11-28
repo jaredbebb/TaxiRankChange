@@ -36,31 +36,26 @@ public class RankCluster {
     	String[] cells = value.toString().split(",");
     	Text longitude = new Text();
     	Text latitude = new Text();
-    	Text long_lat = new Text();
     	Text date = new Text();
-    	Text long_lat_date = new Text();
+    	Text lat_long_date = new Text();
     	try{
     	date.set(","+cells[1].substring(0,10));
-    	BigDecimal longbd = new BigDecimal(Double.parseDouble(cells[5]));
-    	longbd = longbd.setScale(6, RoundingMode.DOWN);
-    	Double longd = longbd.doubleValue();
-    	
-    	
+    	BigDecimal longbd = new BigDecimal(cells[5]);
+    	Double longd = longbd.doubleValue();	
+    
     	DoubleWritable longdw = new DoubleWritable(longd);
     	longitude.set(longdw.toString());
     	
-    	BigDecimal bdlat = new BigDecimal(Double.parseDouble(cells[6]));
-    	bdlat = bdlat .setScale(6, RoundingMode.DOWN);
+    	BigDecimal bdlat = new BigDecimal(cells[6]);
     	Double dlat = bdlat.doubleValue();
     	
     	
     	DoubleWritable lat = new DoubleWritable(dlat);
     	latitude.set(lat.toString());
     	
-    	long_lat.set(longdw.toString()+","+lat.toString());
-    	long_lat_date.set(longdw.toString()+","+lat.toString()+ date);
+    	lat_long_date.set(lat.toString()+","+longdw.toString()+ date);
 
-    	context.write(long_lat_date,one);
+    	context.write(lat_long_date,one);
     	}
     	catch(NumberFormatException e){
     		System.out.println("Looks like the wrong number format. "+e);
